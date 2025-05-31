@@ -8,9 +8,12 @@ router.get('/', (req, res) => {
 });
 
 router.post('/', async (req, res) => {
-  const { name, phone, password } = req.body;
-  if (!name || !phone || !password)
+  const { name, phone, password, password2 } = req.body;
+  if (!name || !phone || !password || !password2)
     return res.json({ success: false, message: '모든 값을 입력하세요.' });
+
+  if (password !== password2)
+    return res.json({ success: false, message: '비밀번호가 일치하지 않습니다.' });
 
   const hashed = await bcrypt.hash(password, 10);
 

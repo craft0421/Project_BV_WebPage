@@ -3,99 +3,25 @@
 <head>
   <meta charset="UTF-8">
   <title>회원가입</title>
-  <style>
-    body {
-      background: #f6f6f6;
-      font-family: 'Segoe UI', Arial, sans-serif;
-      margin: 0;
-      padding: 0;
-    }
-    .signup-container {
-      background: #fff;
-      max-width: 350px;
-      margin: 60px auto 0 auto;
-      padding: 12px 0px 24px 0px;
-      border-radius: 12px;
-      box-shadow: 0 2px 16px rgba(60, 60, 60, 0.1);
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-    }
-    h2 {
-      margin-bottom: 22px;
-      color: #333;
-    }
-    .form-group {
-      margin-bottom: 15px;
-      width: 100%;
-    }
-    label {
-      display: block;
-      margin-bottom: 5px;
-      color: #444;
-      font-size: 15px;
-    }
-    input[type="text"],
-    input[type="password"] {
-      width: 100%;
-      padding: 9px 11px;
-      border: 1px solid #d1d1d1;
-      border-radius: 6px;
-      font-size: 15px;
-      background: #fafafa;
-      box-sizing: border-box;
-      margin-bottom: 2px;
-      transition: border 0.2s;
-    }
-    input[type="text"]:focus,
-    input[type="password"]:focus {
-      border-color: #5f8fff;
-      outline: none;
-    }
-    .message {
-      margin-bottom: 14px;
-      color: #d93025;
-      font-size: 14px;
-      text-align: center;
-    }
-    button {
-      width: 100%;
-      background: #5f8fff;
-      color: #fff;
-      border: none;
-      border-radius: 6px;
-      padding: 10px;
-      font-size: 16px;
-      font-weight: 500;
-      margin-top: 8px;
-      cursor: pointer;
-      transition: background 0.15s;
-    }
-    button:hover {
-      background: #4376d7;
-    }
-    .to-login {
-      margin-top: 18px;
-      font-size: 14px;
-      color: #888;
-    }
-    .to-login a {
-      color: #5f8fff;
-      text-decoration: none;
-      font-weight: 500;
-    }
-    .to-login a:hover {
-      text-decoration: underline;
-    }
-  </style>
+  <link rel="stylesheet" href="/css/style.css">
 </head>
 <body>
+  <div class="bg-overlay"></div>
+  <div class="topbar">
+    <div class="topbar-left">
+      <img src="/brainvalley.png" class="topbar-logo" alt="로고">
+      <span class="topbar-title">BrainValley Academic Analytics</span>
+    </div>
+    <div class="topbar-right">
+      <a href="/" class="topbar-link">메인 페이지</a>
+      <a href="/login" class="topbar-link">로그인</a>
+      <a href="/signup" class="topbar-link">회원가입</a>
+    </div>
+  </div>
+  <br>
   <div class="signup-container">
-    <h2>회원가입</h2>
-    <% if (typeof message !== 'undefined') { %>
-      <div class="message"><%= message %></div>
-    <% } %>
-    <form id="signupForm" action="/signup" method="post" autocomplete="off">
+    <form id="signupForm" autocomplete="off">
+      <h2>회원가입</h2>
       <div class="form-group">
         <label for="name">이름</label>
         <input type="text" id="name" name="name" required maxlength="20">
@@ -108,13 +34,23 @@
         <label for="password">비밀번호</label>
         <input type="password" id="password" name="password" required maxlength="30">
       </div>
+      <div class="form-group">
+        <label for="password2">비밀번호 확인</label>
+        <input type="password" id="password2" name="password2" required maxlength="30">
+      </div>
       <button type="submit">가입하기</button>
     </form>
     <script>
     document.getElementById('signupForm').addEventListener('submit', async function(e) {
-      e.preventDefault(); // 기존 폼 제출 막음
+      e.preventDefault();
       const form = e.target;
       const formData = new FormData(form);
+
+      // 비밀번호와 확인값이 일치하는지 체크(프론트)
+      if (form.password.value !== form.password2.value) {
+        alert('비밀번호가 일치하지 않습니다.');
+        return;
+      }
 
       const res = await fetch('/signup', {
         method: 'POST',

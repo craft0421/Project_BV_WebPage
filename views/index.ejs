@@ -2,21 +2,34 @@
 <html lang="ko">
 <head>
   <meta charset="UTF-8">
-  <title>메인 페이지</title>
+  <title>브레인밸리 학습 성과 관리 시스템</title>
+  <link rel="stylesheet" href="/css/style.css">
 </head>
 <body>
-  <% if (user) { %>
-    <h2>안녕하세요, <%= user.name %>님!</h2>
-    <p>전화번호: <%= user.phone %></p>
-    <p>권한: <%= user.role === 1 ? '관리자' : '일반 사용자' %></p>
-    <form action="/logout" method="post">
-      <button type="submit">로그아웃</button>
-    </form>
-  <% } else { %>
-    <h2>환영합니다!</h2>
-    <p>아직 로그인하지 않으셨습니다.</p>
-    <a href="/login">로그인</a>
-    <a href="/signup">회원가입</a>
-  <% } %>
+  <div class="bg-overlay"></div>
+  <div class="topbar">
+    <div class="topbar-left">
+      <img src="/brainvalley.png" class="topbar-logo" alt="로고">
+      <span class="topbar-title">BrainValley Academic Analytics</span>
+    </div>
+    <div class="topbar-right">
+      <% if (!user) { %>
+        <a href="/login" class="topbar-link">로그인</a>
+        <a href="/signup" class="topbar-link">회원가입</a>
+      <% } else { %>
+        <a href="#" class="topbar-link">내 정보</a>
+        <a href="#" class="topbar-link">성적 관리</a>
+        <form action="/logout" method="post" style="display:inline;">
+          <button type="submit" class="topbar-link" style="background:none; border:none; cursor:pointer; margin-top: 20px;">로그아웃</button>
+        </form>
+      <% } %>
+    </div>
+  </div>
+  <div class="welcome-box">
+    <strong>브레인밸리<br>학습 성과 관리 시스템에<br>오신 것을 환영합니다.</strong>
+    <hr class="divider">
+    로그인하시면 성적, 공지사항, 학습 정보를 직관적으로 확인하고 관리하실 수 있습니다.<br>
+    학습의 흐름을 한눈에, <b style="color: #9ba3ac;">브레인밸리</b>와 함께하세요.
+  </div>
 </body>
 </html>
