@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <title>점수 조회</title>
+  <link rel="stylesheet" href="/css/style.css">
+  <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
+</head>
+<body>
+  <div class="bg-overlay"></div>
+  <div class="topbar">
+    <div class="topbar-left">
+      <img src="/brainvalley.png" class="topbar-logo" alt="로고">
+      <span class="topbar-title">BrainValley Academic Analytics</span>
+    </div>
+    <div class="topbar-right">
+      <% if (!user) { %>
+        <a href="/login" class="topbar-link">로그인</a>
+        <a href="/signup" class="topbar-link">회원가입</a>
+      <% } else { %>
+        <a href="/profile" class="topbar-link">내 정보</a>
+        <a href="/myscore" class="topbar-link">성적 관리</a>
+        <form action="/logout" method="post" style="display:inline;">
+          <button type="submit" class="topbar-link" style="background:none; border:none; cursor:pointer; margin-top: 20px;">로그아웃</button>
+        </form>
+      <% } %>
+    </div>
+  </div>
+  <div class="form-center-container">
+    <form id="loginForm" action="/myscore" method="POST">
+      <h2>점수 입력</h2>
+      <div class="form-group">
+        <label for="date">날짜 입력</label>
+        <input type="date" id="date" name="date" required style="width: 250px;">
+      </div>
+      <button type="submit">제출</button>
+    </form>
+    </form>
+  </div>
+  </div>
+  <% if (scoreData) { %>
+    <div class="form-center-container" style="margin-top: 2em; max-width: none; text-align: center; background: none;">
+      <table id="captureArea" style="color: #222; background: #fff; border-collapse: collapse; width: auto; box-shadow: 0 2px 8px rgba(0,0,0,0.07); border-radius: 8px; overflow: hidden;">
+        <tr>
+          <th colspan="<%= scoreData.columns.length %>" class="centered" style="background: #89a0d5; color: rgb(255, 255, 255); font-size: 1.1em; padding: 12px 0;">
+        <%= user.name %> <%= scoreData.tableDate %> 시험결과
+          </th>
+        </tr>
+        <tr style="background: #f2f6fa;">
+          <th style="padding: 8px 20px 8px 20px; border-bottom: 2px solid #e0e7ef;">문제</th>
+          <% scoreData.columns.slice(1).forEach(col => { %>
+        <th style="padding: 8px 20px 8px 20px; border-bottom: 2px solid #e0e7ef;"><%= col %></th>
+          <% }); %>
+        </tr>
+        <tr>
+          <td style="padding: 8px 20px 8px 20px; border-bottom: 1px solid #e0e7ef; font-weight: bold;">총점</td>
+          <% scoreData.totalRow.forEach(val => { %>
+        <td style="padding: 8px 20px 8px 20px; border-bottom: 1px solid #e0e7ef;"><%= val %></td>
+          <% }); %>
+        </tr>
+        <tr style="background: #f9fbfd;">
+          <td style="padding: 35px 20px 35px 20px;border-bottom: 1px solid #e0e7ef; font-weight: bold;">점수</td>
+          <% scoreData.myRow.forEach(val => { %>
+        <td style="padding: 35px 20px 35px 20px;border-bottom: 1px solid #e0e7ef;"><%= val %></td>
+          <% }); %>
+        </tr>
+        <tr>
+          <td style="padding: 8px 20px 8px 20px; border-bottom: 1px solid #e0e7ef; font-weight: bold;">평균</td>
+          <% scoreData.meanRow.forEach(val => { %>
+        <td style="padding: 8px 20px 8px 20px; border-bottom: 1px solid #e0e7ef;"><%= val %></td>
+          <% }); %>
+        </tr>
+        <tr style="background: #f9fbfd;">
+          <td style="padding: 8px 20px 8px 20px; font-weight: bold;">표준편차</td>
+          <% scoreData.stdRow.forEach(val => { %>
+        <td style="padding: 8px 20px 8px 20px;"><%= val %></td>
+          <% }); %>
+        </tr>
+      </table>
+      <button id="captureBtn" style="width: auto;">&nbsp;성적표 다운로드&nbsp;</button>
+      <script>
+        document.getElementById('captureBtn').addEventListener('click', function() {
+          html2canvas(document.getElementById('captureArea')).then(function(canvas) {
+            const link = document.createElement('a');
+            link.href = canvas.toDataURL('image/png');
+            link.download = '<%= user.name %>_<%= scoreData.tableDate %>_시험결과.png';
+            link.click();
+          });
+        });
+      </script>
+    </div>
+  <% } else if (noScore) { %>
+    <div class="form-center-container">
+      <div style="margin-top:2em; color:crimson;">해당 날짜에 성적 데이터가 없습니다.</div>
+    </div>
+  <% } %>
+</body>
+</html>

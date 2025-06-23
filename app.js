@@ -24,6 +24,15 @@ app.use('/signup', signupRouter);
 const loginRouter = require('./routes/login');
 app.use('/login', loginRouter);
 
+const profileRouter = require('./routes/profile');
+app.use('/profile', profileRouter);
+
+const myscoreRouter = require('./routes/myscore');
+app.use('/myscore', myscoreRouter);
+
+const inputRouter = require('./routes/input');
+app.use('/input', inputRouter);
+
 app.get('/', (req, res) => {
   res.render('index', { user: req.session.user });
 });

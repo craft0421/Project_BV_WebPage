@@ -12,14 +12,14 @@
     /* 어두운 반투명 오버레이 */
     .bg-overlay {
       position: fixed;
-      z-index: 0;
+      z-index: -1;
       top: 0; left: 0; width: 100vw; height: 100vh;
       background: rgba(103, 114, 139, 0.32);
       pointer-events: none;
     }
     /* 상단 네비게이션 */
     .topbar {
-      position: absolute; top: 0; left: 0; right: 0;
+      position: fixed; top: 0; left: 0; right: 0;
       height: 80px; display: flex; align-items: center; justify-content: space-between;
       padding: 0 54px 0 38px;
       z-index: 2;
@@ -105,7 +105,8 @@
       font-size: 15px;
     }
     input[type="text"],
-    input[type="password"] {
+    input[type="password"],
+    input[type="date"] {
       width: 100%;
       padding: 9px 11px;
       border: 1px solid #d1d1d1;
@@ -117,7 +118,8 @@
       transition: border 0.2s;
     }
     input[type="text"]:focus,
-    input[type="password"]:focus {
+    input[type="password"]:focus
+    input[type="date"]:focus {
       border-color: #5f8fff;
       outline: none;
     }
