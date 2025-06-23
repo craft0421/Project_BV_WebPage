@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <title>내 정보 - BrainValley Academic Portal</title>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+KR:wght@400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/css/style.css"><!-- 기존 style 분리했으면 이걸로! -->
+  <style>
+    .profile-container {
+      margin: 180px auto 0 auto;
+      max-width: 440px;
+      background: rgba(255,255,255,0.85);
+      border-radius: 16px;
+      box-shadow: 0 2px 16px rgba(80,80,100,0.10);
+      padding: 38px 36px 32px 36px;
+      text-align: left;
+      font-size: 1.08rem;
+    }
+    .profile-title {
+      font-size: 1.46rem;
+      font-weight: 700;
+      margin-bottom: 27px;
+      color: #2646a6;
+      letter-spacing: 0.06em;
+    }
+    .profile-row {
+      margin-bottom: 17px;
+    }
+    .profile-row label {
+      display: inline-block;
+      width: 84px;
+      color: #6970a7;
+      font-weight: 500;
+      letter-spacing: 0.01em;
+    }
+    .profile-row .value {
+      color: #23242c;
+      font-weight: 600;
+    }
+    .profile-actions {
+      margin-top: 40px;
+      display: flex; gap: 14px;
+    }
+    .profile-btn {
+      background: #4066e0;
+      color: #fff;
+      border: none;
+      border-radius: 7px;
+      padding: 12px 20px;
+      font-size: 1.03rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.14s;
+    }
+    .profile-btn:hover {
+      background: #1d3268;
+    }
+    .profile-btn.danger {
+      background: #e06060;
+    }
+    .profile-btn.danger:hover {
+      background: #c12d2d;
+    }
+    .adminpage {
+      display: inline-flex;
+      align-items: center;   /* 세로 가운데 정렬 */
+      justify-content: center; /* 가로 가운데 정렬 (옵션) */
+      height: 48px;
+      padding: 0 20px;       /* 상하 패딩 0, 좌우만 */
+      background: #198754;
+      color: #e7fbe7;
+      font-weight: 600;
+      border-radius: 7px;
+      text-decoration: none;
+      font-size: 1.03rem;
+      transition: background 0.14s, color 0.14s;
+      border: none;
+      cursor: pointer;
+      box-shadow: none;
+      margin-top: 8px;
+    }
+    .adminpage:hover {
+      background: #14532d;
+      color: #fff;
+    }
+  </style>
+</head>
+<body>
+<div class="bg-overlay"></div>
+  <div class="topbar">
+    <div class="topbar-left">
+      <img src="/brainvalley.png" class="topbar-logo" alt="로고">
+      <span class="topbar-title">BrainValley Academic Analytics</span>
+    </div>
+    <div class="topbar-right">
+      <% if (!user) { %>
+        <a href="/login" class="topbar-link">로그인</a>
+        <a href="/signup" class="topbar-link">회원가입</a>
+      <% } else { %>
+        <a href="/profile" class="topbar-link">내 정보</a>
+        <a href="/myscore" class="topbar-link">성적 관리</a>
+        <form action="/logout" method="post" style="display:inline;">
+          <button type="submit" class="topbar-link" style="background:none; border:none; cursor:pointer; margin-top: 20px;">로그아웃</button>
+        </form>
+      <% } %>
+    </div>
+  </div>
+  <div class="profile-container">
+    <div class="profile-title">내 정보</div>
+    <div class="profile-row">
+      <label>이름</label>
+      <span class="value"><%= user.name %></span>
+    </div>
+    <div class="profile-row">
+      <label>전화번호</label>
+      <span class="value"><%= user.phone %></span>
+    </div>
+    <% if (user.role === 1) { %>
+      <div class="profile-row">
+        <label>권한</label>
+        <span class="value">관리자</span>
+      </div>
+    <% } %>
+    <div class="profile-actions">
+      <form action="/profile/password" method="post">
+        <button type="submit" class="profile-btn">비밀번호 변경</button>
+      </form>
+      <form action="/profile/delete" method="post" onsubmit="return confirm('정말로 회원탈퇴 하시겠습니까?');">
+        <button type="submit" class="profile-btn danger">회원탈퇴</button>
+      </form>
+      <% if (user.role === 1) { %>
+        <a href="/admin" class="adminpage">관리자 페이지</a>
+      <% } %>
+    </div>
+  </div>
+</body>
+</html>

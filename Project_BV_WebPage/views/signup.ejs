@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <title>회원가입</title>
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+  <div class="bg-overlay"></div>
+  <div class="topbar">
+    <div class="topbar-left">
+      <img src="/brainvalley.png" class="topbar-logo" alt="로고">
+      <span class="topbar-title">BrainValley Academic Analytics</span>
+    </div>
+    <div class="topbar-right">
+      <a href="/" class="topbar-link">메인 페이지</a>
+      <a href="/login" class="topbar-link">로그인</a>
+      <a href="/signup" class="topbar-link">회원가입</a>
+    </div>
+  </div>
+  <br>
+  <div class="signup-container">
+    <form id="signupForm" autocomplete="off">
+      <h2>회원가입</h2>
+      <div class="form-group">
+        <label for="name">이름</label>
+        <input type="text" id="name" name="name" required maxlength="20">
+      </div>
+      <div class="form-group">
+        <label for="phone">전화번호</label>
+        <input type="text" id="phone" name="phone" required maxlength="20">
+      </div>
+      <div class="form-group">
+        <label for="password">비밀번호</label>
+        <input type="password" id="password" name="password" required maxlength="30">
+      </div>
+      <div class="form-group">
+        <label for="password2">비밀번호 확인</label>
+        <input type="password" id="password2" name="password2" required maxlength="30">
+      </div>
+      <button type="submit">가입하기</button>
+    </form>
+    <script>
+    document.getElementById('signupForm').addEventListener('submit', async function(e) {
+      e.preventDefault();
+      const form = e.target;
+      const formData = new FormData(form);
+
+      // 비밀번호와 확인값이 일치하는지 체크(프론트)
+      if (form.password.value !== form.password2.value) {
+        alert('비밀번호가 일치하지 않습니다.');
+        return;
+      }
+
+      const res = await fetch('/signup', {
+        method: 'POST',
+        body: new URLSearchParams(formData),
+        headers: { 'Accept': 'application/json' }
+      });
+      const data = await res.json();
+      alert(data.message);
+      if (data.success) location.href = '/login';
+    });
+    </script>
+    <div class="to-login">
+      이미 계정이 있으신가요? <a href="/login">로그인</a>
+    </div>
+  </div>
+</body>
+</html>

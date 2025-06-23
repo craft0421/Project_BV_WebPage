@@ -1,0 +1,190 @@
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&display=swap" rel="stylesheet">
+    html, body {
+      height: 100%; margin: 0; padding: 0;
+    }
+    body {
+      min-height: 100vh;
+      background: url('/bg.png') center center/cover no-repeat fixed;
+      position: relative;
+      font-family: 'Noto Sans KR', 'Apple SD Gothic Neo', 'Malgun Gothic', 'Nanum Gothic', Arial, sans-serif;
+      color: #fff;
+    }
+    /* 어두운 반투명 오버레이 */
+    .bg-overlay {
+      position: fixed;
+      z-index: -1;
+      top: 0; left: 0; width: 100vw; height: 100vh;
+      background: rgba(103, 114, 139, 0.32);
+      pointer-events: none;
+    }
+    /* 상단 네비게이션 */
+    .topbar {
+      position: fixed; top: 0; left: 0; right: 0;
+      height: 80px; display: flex; align-items: center; justify-content: space-between;
+      padding: 0 54px 0 38px;
+      z-index: 2;
+    }
+    .topbar-left {
+      display: flex; align-items: center; gap: 14px;
+    }
+    .topbar-logo {
+      width: 46px; height: 46px; border-radius: 50%;
+      background: #fff; object-fit: cover;
+      border: 1.5px solid #e3e7ef;
+      box-shadow: 0 2px 8px rgba(40,40,50,0.07);
+    }
+    .topbar-title {
+      font-size: 1.36rem; font-weight: 700;
+      color: #fff; text-shadow: 0 2px 10px rgba(0,0,0,0.11);
+      letter-spacing: 1.6px;
+    }
+    .topbar-right {
+      display: flex; align-items: center; gap: 21px;
+    }
+    .topbar-link {
+      color: #fff; text-decoration: none; font-weight: 500;
+      font-size: 1.09rem; letter-spacing: 0.05em;
+      padding: 8px 18px; border-radius: 8px;
+      background: rgba(34,54,164,0);
+      transition: background 0.13s, color 0.13s;
+    }
+    .topbar-link:hover {
+      background: rgba(30,40,140,0.56);
+      color: #d8e3ff;
+    }
+    /* 메시지 */
+    .welcome-box {
+      position: absolute;
+      left: 64px; bottom: 52px;
+      background: rgba(19, 26, 38, 0);
+      border-radius: 18px;
+      box-shadow: 0 4px 24px rgba(30,30,50,0);
+      padding: 32px 32px 26px 34px;
+      z-index: 2;
+      font-size: 1.50rem;
+      line-height: 1.77;
+      text-align: left;
+    }
+    .welcome-box strong {
+      display: block;
+      font-size: 2.5rem;
+      font-weight: 600;
+      margin-bottom: 11px;
+      color: #fff;
+      letter-spacing: 0.01em;
+    }
+    .divider {
+      border: none;
+      border-top: 1px solid rgba(255,255,255,0.19);
+      margin: 16px 0 16px 0;
+      height: 0;
+    }
+    .form-center-container {
+        background: rgba(255,255,255,0.95);
+        max-width: 350px;
+        margin: 150px auto 0 auto;
+        padding: 38px 20px 56px 20px;
+        border-radius: 12px;
+        box-shadow: 0 2px 16px rgba(60, 60, 60, 0.1);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+    h2 {
+      margin-bottom: 22px;
+      color: #333;
+    }
+    .form-group {
+      margin-bottom: 15px;
+      width: 100%;
+    }
+    label {
+      display: block;
+      margin-bottom: 5px;
+      color: #444;
+      font-size: 15px;
+    }
+    input[type="text"],
+    input[type="password"],
+    input[type="date"] {
+      width: 100%;
+      padding: 9px 11px;
+      border: 1px solid #d1d1d1;
+      border-radius: 6px;
+      font-size: 15px;
+      background: #fafafa;
+      box-sizing: border-box;
+      margin-bottom: 2px;
+      transition: border 0.2s;
+    }
+    input[type="text"]:focus,
+    input[type="password"]:focus
+    input[type="date"]:focus {
+      border-color: #5f8fff;
+      outline: none;
+    }
+    button {
+      width: 100%;
+      background: #5f8fff;
+      color: #fff;
+      border: none;
+      border-radius: 6px;
+      padding: 10px;
+      font-size: 16px;
+      font-weight: 500;
+      margin-top: 8px;
+      margin-bottom: 20px;
+      cursor: pointer;
+      transition: background 0.15s;
+    }
+    button:hover {
+      background: #4376d7;
+    }
+    .to-signup {
+      margin-top: 18px;
+      font-size: 14px;
+      color: #111;
+      text-align: center;
+    }
+    .to-signup a {
+      color: #5f8fff;
+      text-decoration: none;
+      font-weight: 500;
+    }
+    .to-signup a:hover {
+      text-decoration: underline;
+    }
+    .to-login {
+      margin-top: 2px;
+      font-size: 14px;
+      color: #111;
+      text-align: center;
+    }
+    .to-login a {
+      color: #5f8fff;
+      text-decoration: none;
+      font-weight: 500;
+    }
+    .to-login a:hover {
+      text-decoration: underline;
+    }
+    .signup-container {
+      background: rgba(255,255,255,0.95);
+      max-width: 350px;
+      margin: 100px auto 0 auto;
+      padding: 18px 30px 36px 30px;
+      border-radius: 12px;
+      box-shadow: 0 2px 16px rgba(60, 60, 60, 0.1);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    
+    @media (max-width: 900px) {
+      .welcome-box { right: 20px; left: 20px; max-width: none; }
+      .topbar { padding: 0 12px 0 12px; }
+    }
+    @media (max-width: 700px) {
+      .welcome-box { font-size: 1.07rem; padding: 20px 10px 16px 14px;}
+      .topbar-title { font-size: 1.05rem; }
+    }

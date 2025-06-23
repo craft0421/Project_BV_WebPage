@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <title>로그인 - BrainValley Academic Analytics</title>
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+  <div class="bg-overlay"></div>
+  <div class="topbar">
+    <div class="topbar-left">
+      <img src="/brainvalley.png" class="topbar-logo" alt="로고">
+      <span class="topbar-title">BrainValley Academic Analytics</span>
+    </div>
+    <div class="topbar-right">
+      <a href="/" class="topbar-link">메인 페이지</a>
+      <a href="/login" class="topbar-link">로그인</a>
+      <a href="/signup" class="topbar-link">회원가입</a>
+    </div>
+  </div>
+  <br>
+  <div class="form-center-container">
+    <form id="loginForm" class="form-card" autocomplete="off">
+      <h2>로그인</h2>
+      <div class="form-group">
+        <label for="phone">전화번호</label>
+        <input type="text" id="phone" name="phone" required maxlength="20">
+      </div>
+      <div class="form-group">
+        <label for="password">비밀번호</label>
+        <input type="password" id="password" name="password" required maxlength="30">
+      </div>
+      <button type="submit">로그인</button>
+      <br>
+      <div class="to-signup">
+        계정이 없으신가요? <a href="/signup">회원가입</a>
+      </div>
+    </form>
+  </div>
+  <script>
+    document.getElementById('loginForm').addEventListener('submit', async function(e) {
+      e.preventDefault();
+      const form = e.target;
+      const formData = new FormData(form);
+
+      const res = await fetch('/login', {
+        method: 'POST',
+        body: new URLSearchParams(formData),
+        headers: { 'Accept': 'application/json' }
+      });
+      const data = await res.json();
+      alert(data.message);
+      if (data.success) location.href = '/';
+    });
+  </script>
+</body>
+</html>

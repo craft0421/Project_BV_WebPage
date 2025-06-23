@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <title>브레인밸리 학습 성과 관리 시스템</title>
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+  <div class="bg-overlay"></div>
+  <div class="topbar">
+    <div class="topbar-left">
+      <img src="/brainvalley.png" class="topbar-logo" alt="로고">
+      <span class="topbar-title">BrainValley Academic Analytics</span>
+    </div>
+    <div class="topbar-right">
+      <% if (!user) { %>
+        <a href="/login" class="topbar-link">로그인</a>
+        <a href="/signup" class="topbar-link">회원가입</a>
+      <% } else { %>
+        <a href="/profile" class="topbar-link">내 정보</a>
+        <a href="/myscore" class="topbar-link">성적 관리</a>
+        <form action="/logout" method="post" style="display:inline;">
+          <button type="submit" class="topbar-link" style="background:none; border:none; cursor:pointer; margin-top: 20px;">로그아웃</button>
+        </form>
+      <% } %>
+    </div>
+  </div>
+  <div class="welcome-box">
+    <strong>브레인밸리<br>학습 성과 관리 시스템에<br>오신 것을 환영합니다.</strong>
+    <hr class="divider">
+    로그인하시면 성적, 공지사항, 학습 정보를 직관적으로 확인하고 관리하실 수 있습니다.<br>
+    학습의 흐름을 한눈에, <b style="color: #9ba3ac;">브레인밸리</b>와 함께하세요.
+  </div>
+</body>
+</html>
